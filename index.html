@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8888 Trading Platform - Premium Professional Node</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-main: #0c0e12;
+            --bg-card: #161a22;
+            --bg-input: #1f2633;
+            --primary: #f0b90b;
+            --primary-hover: #dfaa08;
+            --success: #0ecb81;
+            --danger: #f6465d;
+            --text-main: #eaecef;
+            --text-muted: #848e9c;
+            --border: #2b3139;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            padding-bottom: 90px;
+            overflow-x: hidden;
+        }
+
+        /* Route Display View Controllers */
+        .page-route {
+            display: none;
+            padding: 20px;
+            max-width: 480px;
+            margin: 0 auto;
+            animation: screenRouteFade 0.22s ease-out;
+        }
+
+        .page-route.active {
+            display: block;
+        }
+
+        @keyframes screenRouteFade {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Premium Gateway Authentication UI Styling */
+        .auth-card {
+            margin-top: 40px;
+            padding: 35px 24px;
+            background: var(--bg-card);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+            text-align: center;
+        }
+
+        .auth-brand {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: 1.5px;
+            margin-bottom: 4px;
+            text-shadow: 0 0 10px rgba(240,185,11,0.2);
+        }
+
+        .auth-tagline {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .input-wrapper {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-wrapper label {
+            display: block;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .input-wrapper .field-box {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrapper .field-box i {
+            position: absolute;
+            left: 14px;
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        .input-wrapper input, .input-wrapper select {
+            width: 100%;
+            padding: 15px 15px 15px 42px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .input-wrapper input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(240,185,11,0.1);
+        }
+
+        .btn-action-trigger {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary);
+            color: #000;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .btn-action-trigger:hover { background: var(--primary-hover); }
+        .btn-action-trigger:active { transform: scale(0.98); }
+
+        .auth-router-toggle {
+            margin-top: 22px;
+            font-size: 13px;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .auth-router-toggle span {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+        /* Top Header Navigation Modules */
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 18px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 20px;
+        }
+
+        /* Promotional Bonus Engine Card Styles */
+        .promo-bonus-box {
+            background: linear-gradient(135deg, #f0b90b 0%, #f8d147 100%);
+            color: #000;
+            border-radius: 14px;
+            padding: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+            box-shadow: 0 6px 18px rgba(240,185,11,0.25);
+        }
+
+        .promo-bonus-box button {
+            background: #0c0e12;
+            color: #fff;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Portfolio Balance Display Module */
+        .portfolio-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 26px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .portfolio-label {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .portfolio-metrics-value {
+            font-size: 42px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 24px;
+        }
+
+        .portfolio-quick-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .btn-quick {
+            padding: 14px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #fff;
+        }
+        .btn-quick.dep { background: var(--success); }
+        .btn-quick.wd { background: var(--danger); }
+
+        /* Candlestick Real-Time Market Rendering Layouts */
+        .market-graph-card {
+            background: #11141a;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+
+        .graph-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .live-candlestick-viewport {
+            height: 150px;
+            width: 100%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+            gap: 6px;
+            overflow: hidden;
+            border-bottom: 1px dashed var(--border);
+            padding-bottom: 4px;
+        }
+
+        .candle-stick-node {
+            flex-shrink: 0;
+            width: 14px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            animation: candlePop 0.2s ease-out;
+        }
+
+        @keyframes candlePop { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+        .candle-stick-node .wick-line { position: absolute; width: 2px; height: 100%; background: inherit; }
+        .candle-stick-node .body-fill { position: absolute; width: 100%; border-radius: 2px; }
+        .candle-stick-node.bullish { background: var(--success); color: var(--success); }
+        .candle-stick-node.bearish { background: var(--danger); color: var(--danger); }
+
+        /* Investment Product Inventory List Items */
+        .catalog-container {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .product-inventory-node {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: border-color 0.2s;
+        }
+
+        .product-inventory-node:hover { border-color: #3b424d; }
+
+        .btn-purchase-node {
+            background: var(--primary);
+            color: #000;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        /* Interactive Dynamic Pan-African 53 Country Matrix */
+        .african-subscription-matrix {
+            max-height: 180px;
+            overflow-y: auto;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--bg-input);
+            margin-bottom: 20px;
+            padding: 6px;
+        }
+
+        .country-bank-node-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 4px;
+            transition: background 0.2s;
+        }
+
+        .country-bank-node-item:hover { background: rgba(255,255,255,0.03); }
+        .country-bank-node-item.selected {
+            background: rgba(240,185,11,0.08);
+            border: 1px solid var(--primary);
+        }
+
+        .country-avatar-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #2b3139;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            margin-right: 12px;
+            border: 1px solid var(--border);
+        }
+
+        /* Informational Caution Notification Plates */
+        .caution-info-plate {
+            background: rgba(240, 185, 11, 0.07);
+            border-left: 4px solid var(--primary);
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #f3c236;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .clipboard-display-wrapper {
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        /* Ledger History Transaction Elements */
+        .ledger-wrapper {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 10px;
+        }
+
+        .ledger-row-node {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+            font-size: 13px;
+        }
+
+        .ledger-row-node:last-child { border-bottom: none; }
+
+        /* System Administrative Engine Structural Elements */
+        .admin-terminal-plate {
+            background: var(--bg-card);
+            border: 1px solid var(--primary);
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 22px;
+        }
+
+        .admin-data-table-container {
+            width: 100%;
+            overflow-x: auto;
+            background: #090b0e;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            margin-top: 8px;
+            margin-bottom: 20px;
+        }
+
+        .admin-data-matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            text-align: left;
+        }
+
+        .admin-data-matrix-table th, .admin-data-matrix-table td {
+            padding: 12px 10px;
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+        }
+
+        .admin-data-matrix-table th {
+            background: #171b22;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Fixed Navigation Menu Footer Components */
+        .docked-bottom-bar-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            align-items: center;
+            text-align: center;
+            z-index: 1000;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.4);
+        }
+
+        .dock-tab-action-item {
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            font-size: 11px;
+            font-weight: 500;
+            gap: 4px;
+            transition: color 0.15s;
+        }
+
+        .dock-tab-action-item i { font-size: 20px; }
+        .dock-tab-action-item.active { color: var(--primary); }
+
+        /* System Runtime Interactive Floating Alerts */
+        .toast-notification-banner {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 400px;
+            background: #1c212b;
+            border-left: 4px solid var(--primary);
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            z-index: 10000;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="runtimeToast" class="toast-notification-banner">
+        <div style="font-weight: 700; font-size: 14px; margin-bottom: 4px;" id="toastTitle">Alert Notification</div>
+        <div style="font-size: 12px; color: var(--text-muted);" id="toastMessage">Log description trace text...</div>
+    </div>
+
+    <div id="route-auth" class="page-route active">
+        <div class="auth-card">
+            <div class="auth-brand">8888 TRADING</div>
+            <div id="auth-view-subtitle" class="auth-tagline">Create your global account node to begin operations</div>
+            
+            <div class="input-wrapper" id="auth-fullname-wrapper">
+                <label>Trader Legal Name</label>
+                <div class="field-box">
+                    <i class="fa-regular fa-user"></i>
+                    <input type="text" id="field-auth-name" placeholder="Enter your full name">
+                </div>
+            </div>
+
+            <div class="input-wrapper">
+                <label>Mobile Phone Number</label>
+                <div class="field-box">
+                    <i class="fa-solid fa-phone"></i>
+                    <input type="tel" id="field-auth-phone" placeholder="e.g. 0912345678">
+                </div>
+            </div>
+
+            <div class="input-wrapper">
+                <label>Account Secure Password</label>
+                <div class="field-box">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="field-auth-pass" placeholder="Enter password text">
+                </div>
+            </div>
+
+            <button class="btn-action-trigger" id="btn-auth-submit" onclick="processGatewayAuthentication()">Sign Up & Initialize</button>
+            
+            <div class="auth-router-toggle" id="auth-view-switcher" onclick="toggleAuthenticationViewMode()">
+                Already registered down the chain? <span>Log In Instead</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="route-home" class="page-route">
+        <div class="app-header">
+            <div>
+                <div style="font-size: 12px; color: var(--text-muted);">Welcome Back</div>
+                <div style="font-size: 16px; font-weight: 700; color: var(--primary);" id="display-profile-user">Trader Account</div>
+            </div>
+            <div style="font-size: 12px; padding: 6px 12px; background: rgba(14,203,129,0.1); color: var(--success); border-radius: 20px; font-weight: 600;">
+                <i class="fa-solid fa-shield-halved"></i> Secured Live
+            </div>
+        </div>
+
+        <div class="promo-bonus-box" id="registration-bonus-node">
+            <div style="display:flex; align-items:center; gap:12px;">
+                <i class="fa-solid fa-box-open" style="font-size: 26px;"></i>
+                <div>
+                    <div style="font-weight: 700; font-size: 14px;">Claim Registration Reward</div>
+                    <div style="font-size: 11px; opacity: 0.85; font-weight: 400;">Instant $1.50 startup capital injection</div>
+                </div>
+            </div>
+            <button onclick="claimStartupCapitalReward()">Claim</button>
+        </div>
+
+        <div class="portfolio-card">
+            <div class="portfolio-label">Total Asset Balance (USD)</div>
+            <div class="portfolio-metrics-value">$<span id="display-usd-balance">0.00</span></div>
+            <div class="portfolio-quick-actions">
+                <button class="btn-quick dep" onclick="navigateToSelectedScreen('deposit')">
+                    <i class="fa-solid fa-circle-plus"></i> Recharge
+                </button>
+                <button class="btn-quick wd" onclick="navigateToSelectedScreen('withdraw')">
+                    <i class="fa-solid fa-circle-minus"></i> Withdrawal
+                </button>
+            </div>
+        </div>
+
+        <div class="market-graph-card">
+            <div class="graph-meta">
+                <div style="font-size: 13px; font-weight:600;"><span style="display:inline-block; width:8px; height:8px; background: var(--success); border-radius:50%; margin-right:4px;"></span> BTC Live Market Engine</div>
+                <div style="font-weight:700; font-size:14px;" id="live-crypto-ticker-price" class="txt-success">$64,250.00</div>
+            </div>
+            <div class="live-candlestick-viewport" id="candlestick-container-viewport"></div>
+        </div>
+
+        <div style="font-size: 15px; font-weight:700; margin-bottom:12px;">Active Trading Smart Products</div>
+        <div class="catalog-container" id="investment-catalog-grid"></div>
+    </div>
+
+    <div id="route-deposit" class="page-route">
+        <div style="font-size:16px; font-weight:700; margin-bottom:14px;"><i class="fa-solid fa-building-columns" style="color:var(--success)"></i> Purchase Platform Assets</div>
+        
+        <div class="caution-info-plate">
+            <strong>Warning Announcement Notice:</strong> To complete the asset acquisition, select your localized bank from the 53 African nations below. Copy the administrative recipient destination address account. Transfer fund allocations within 20 minutes, then input the resulting transaction SMS validation snippet block.
+        </div>
+
+        <div style="font-size:12px; color:var(--text-muted); font-weight:600; margin-bottom:6px; text-transform:uppercase;">Select Pan-African Subscription Bank Node (53 Nations Available)</div>
+        <div class="african-subscription-matrix" id="deposit-african-bank-picker"></div>
+
+        <div class="clipboard-display-wrapper">
+            <div>
+                <div style="font-size:11px; color:var(--text-muted);">Administrative Deposit Target</div>
+                <div style="font-size:16px; font-weight:700; color:var(--primary);" id="global-admin-account-number">1000705884987</div>
+            </div
